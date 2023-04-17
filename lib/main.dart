@@ -4,7 +4,6 @@ import 'package:time_work/service/http_request.dart';
 
 void main() {
   runApp(const MyApp());
-  authenticate();
 }
 
 class MyApp extends StatelessWidget {

@@ -1,9 +1,12 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<String> authenticate() async {
-  final authUrl = Uri.parse('https://vienna.odoo.com/web/session/authenticate');
-  const headers = {'Content-Type': 'application/json'};
+Future<http.Response> authenticate() async {
+  final authUrl =
+      Uri.parse('https://vienna.odoo.com/web/session/authenticate/');
+  const headers = {
+    'Content-Type': 'application/json',
+  };
   final body = json.encode({
     'jsonrpc': '2.0',
     'params': {
@@ -23,7 +26,7 @@ Future<String> authenticate() async {
   return sessionId;
 }
 
-Future<String?> getEmployee(sessionId) async {
+Future<http.Response> getEmployee(sessionId) async {
   final dataUrl = Uri.parse('https://vienna.odoo.com/wev/dataset/call_kw');
   final employeeHeaders = {
     'Content.type': 'application/json',
@@ -49,7 +52,7 @@ Future<String?> getEmployee(sessionId) async {
   return employees;
 }
 
-Future<String?> getProject(sessionId) async {
+Future<http.Response> getProject(sessionId) async {
   final dataUrl = Uri.parse('https://vienna.odoo.com/wev/dataset/call_kw');
   final employeeHeaders = {
     'Content.type': 'application/json',

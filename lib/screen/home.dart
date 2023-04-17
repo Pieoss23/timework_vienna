@@ -9,21 +9,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _isAuthenticated = false;
   @override
   void initState() {
     super.initState();
-    authenticate();
+    authenticate().then((isAuthenticated) {
+      _isAuthenticated = isAuthenticated as bool;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('USERS'),
-      ),
-      body: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {},
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('Auth'),
+        ),
+        body: Center(
+          child: _isAuthenticated
+              ? const Text('✔️Authentication successful!')
+              : const Text('❌Authentication failed!'),
+        ));
   }
 }
