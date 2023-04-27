@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     authenticate().then((response) {
       setState(() {
-        _isAuthenticated = response.statusCode == 200;
+        _isAuthenticated = response[0].status == 200;
       });
     });
   }

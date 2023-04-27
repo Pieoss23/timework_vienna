@@ -4,7 +4,16 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 
-Future authenticate() async {
+class AuthResponse {
+  String sessionToken;
+  int status;
+  AuthResponse({
+    required this.sessionToken,
+    required this.status,
+  });
+}
+
+Future<List<AuthResponse>> authenticate() async {
   // Create the authentication URL
   final authUrl = Uri.https('vienna.odoo.com', '/web/session/authenticate');
 
@@ -43,73 +52,24 @@ Future authenticate() async {
   print(authResponse);
   print(session);
   print(sessionId);
-  // Extract the status code from the response
   final statusCode = authResponse.statusCode;
+  List<AuthResponse> res = [
+    AuthResponse(
+      sessionToken: sessionId,
+      status: statusCode,
+    ),
+  ];
+  // Extract the status code from the response
   // Return the session ID wrapped in a Future object
-  return authResponse;
+  return res;
   // http.Response(body, statusCode);
 }
 
-// Future<void> authenticate() async {
-//   final client = HttpClient();
-//   final url = Uri.https('vienna.odoo.com', '/web/session/authenticate');
-//   final request = await client.postUrl(url);
-//   request.headers.contentType = ContentType.json;
-//   request.write(jsonEncode({
-//     'jsonrpc': '2.0',
-//     'params': {
-//       'db': 'vienna',
-//       'login': 'alessandro.dellanna@ixorateam.com',
-//       'password': '-tomishiba2020-',
-//     },
-//   }));
-//   if (request is BrowserHttpClientRequest) {
-//     request.browserCredentialsMode = true;
-//   }
-//   final response = await request.close();
-//   final responseBody = await response.transform(utf8.decoder).join();
-//   final responseJson = jsonDecode(responseBody);
-//   if (responseJson['result'] != null) {
-//     final sessionId = responseJson['result']['session_id'];
-//     print(sessionId);
-//     // Use the sessionId to make authenticated requests to the Odoo server
-//   } else {
-//     // Authentication failed
-//   }
-// }
-
-// Future<void> authenticate() async {
-//   final client = HttpClient();
-//   final url = Uri.https('vienna.odoo.com', '/web/session/authenticate');
-//   final request = await client.postUrl(url);
-//   request.headers.contentType = ContentType.json;
-//   request.write(jsonEncode({
-//     'jsonrpc': '2.0',
-//     'params': {
-//       'db': 'vienna',
-//       'login': 'alessandro.dellanna@ixorateam.com',
-//       'password': '-tomishiba2020-',
-//     },
-//   }));
-//   if (request is BrowserHttpClientRequest) {
-//     request.browserCredentialsMode = true;
-//   }
-//   final response = await request.close();
-//   final responseBody = await response.transform(utf8.decoder).join();
-//   final responseJson = jsonDecode(responseBody);
-//   if (responseJson['result'] != null) {
-//     final sessionId = responseJson['result']['session_id'];
-//     // Use the sessionId to make authenticated requests to the Odoo server
-//   } else {
-//     // Authentication failed
-//   }
-// }
-
-Future<http.BaseResponse> getEmployee(sessionId) async {
-  final dataUrl = Uri.parse('https://vienna.odoo.com/wev/dataset/call_kw');
+Future<http.BaseResponse> getEmployee(res) async {
+  final dataUrl = Uri.https('vienna.odoo.com/', 'web/dataset/call_kw');
   final employeeHeaders = {
     'Content.type': 'application/json',
-    'Cookie': 'session_id=$sessionId',
+    'Cookie': 'session_id=$res["sessionToken"]',
   };
   final empBody = {
     'jsonrpc': '2.0',
