@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Center(
           child: _isAuthenticated
-              ? const Text('✔️Authentication successful!')
+              ? const Text('✅Authentication successful!')
               : const Text('❌Authentication failed!'),
         ));
   }

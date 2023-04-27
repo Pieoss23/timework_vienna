@@ -34,7 +34,7 @@ Future<List<AuthResponse>> authenticate() async {
   });
 
   // Send the POST request
-  final authResponse = await http.post(
+  http.Response authResponse = await http.post(
     authUrl,
     headers: headers,
     body: body,
@@ -62,34 +62,6 @@ Future<List<AuthResponse>> authenticate() async {
   return res;
   // http.Response(body, statusCode);
 }
-
-// Future<void> authenticate() async {
-//   final client = HttpClient();
-//   final url = Uri.https('vienna.odoo.com', '/web/session/authenticate');
-//   final request = await client.postUrl(url);
-//   request.headers.contentType = ContentType.json;
-//   request.write(jsonEncode({
-//     'jsonrpc': '2.0',
-//     'params': {
-//       'db': 'vienna',
-//       'login': 'alessandro.dellanna@ixorateam.com',
-//       'password': '-tomishiba2020-',
-//     },
-//   }));
-//   if (request is BrowserHttpClientRequest) {
-//     request.browserCredentialsMode = true;
-//   }
-//   final response = await request.close();
-//   final responseBody = await response.transform(utf8.decoder).join();
-//   final responseJson = jsonDecode(responseBody);
-//   if (responseJson['result'] != null) {
-//     final sessionId = responseJson['result']['session_id'];
-//     print(sessionId);
-//     // Use the sessionId to make authenticated requests to the Odoo server
-//   } else {
-//     // Authentication failed
-//   }
-// }
 
 // Future<void> authenticate() async {
 //   final client = HttpClient();
