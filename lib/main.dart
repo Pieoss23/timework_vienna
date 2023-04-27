@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:time_work/screen/home.dart';
+import 'package:get/get.dart';
+import 'package:time_work/views/home.view.dart';
 import 'package:time_work/service/http_request.dart';
 import 'dart:io';
+
+import 'package:time_work/utils/global.colors.dart';
+import 'package:time_work/views/splash.view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,12 +17,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Time Work ⏲️',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
-      home: const HomeScreen(),
+      home: const SplashPage(),
     );
   }
 }

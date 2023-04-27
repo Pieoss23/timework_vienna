@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:time_work/service/http_request.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+import 'package:get/get.dart';
+import 'package:http/http.dart';
+
+import 'package:time_work/service/http_request.dart';
+import 'package:time_work/views/loginPage.view.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomePageState extends State<HomePage> {
   bool _isAuthenticated = false;
   @override
   void initState() {
     super.initState();
-    authenticate().then((isAuthenticated) {
-      _isAuthenticated = isAuthenticated as bool;
+    authenticate().then((response) {
+      setState(() {
+        _isAuthenticated = response[0].status == 200;
+      });
+
+      // to the check if just logged in or not
+
+      Get.to(LoginPage());
     });
   }
 

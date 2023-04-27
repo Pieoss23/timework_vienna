@@ -4,7 +4,16 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 
-Future<http.BaseResponse> authenticate() async {
+class AuthResponse {
+  String sessionToken;
+  int status;
+  AuthResponse({
+    required this.sessionToken,
+    required this.status,
+  });
+}
+
+Future<List<AuthResponse>> authenticate() async {
   // Create the authentication URL
   final authUrl = Uri.https('vienna.odoo.com', '/web/session/authenticate');
 
@@ -32,20 +41,25 @@ Future<http.BaseResponse> authenticate() async {
   );
 
   // Extract the session ID from the response headers
-  final session = json.decode(authResponse.body)['result']['session_id'];
-  final sessionId = authResponse.headers.toString();
-  // ['set-cookie']
-  // ?.split('; ')[0]
-  // .replaceAll('session_id=', '');
-  print(authResponse);
-  print(session);
-  print(sessionId);
-  // Extract the status code from the response
+  final sessions = json.decode(authResponse.body);
+  final session = authResponse.headers.toString();
+  final sessionId = session
+      .split(', ')[1]
+      .replaceAll('session_id=', '')
+      .replaceAll('set-cookie: ', '')
+      .split(';')[0];
   final statusCode = authResponse.statusCode;
-  final responseString = authResponse.body;
-  print(responseString);
+
+  List<AuthResponse> res = [
+    AuthResponse(
+      sessionToken: sessionId,
+      status: statusCode,
+    ),
+  ];
+
+  print(res);
   // Return the session ID wrapped in a Future object
-  return authResponse;
+  return res;
   // http.Response(body, statusCode);
 }
 
@@ -104,32 +118,31 @@ Future<http.BaseResponse> authenticate() async {
 //   }
 // }
 
+Future<http.Response> getEmployee(sessionId) async {
+  final dataUrl = Uri.parse('https://vienna.odoo.com/wev/dataset/call_kw');
+  final employeeHeaders = {
+    'Content.type': 'application/json',
+    'Cookie': 'session_id=$sessionId',
+  };
+  final empBody = {
+    'jsonrpc': '2.0',
+    'params': {
+      'model': 'hr.employee',
+      'method': 'search_read',
+      'args': [],
+      'kwargs': {
+        'context': {'binsize': true},
+        'domain': [],
+        'fields': ['name', 'barcode']
+      },
+    }
+  };
+  final empResponse =
+      await http.post(dataUrl, headers: employeeHeaders, body: empBody);
+  final employees = json.decode(empResponse.body)['result'];
 
-// Future<http.Response> getEmployee(sessionId) async {
-//   final dataUrl = Uri.parse('https://vienna.odoo.com/wev/dataset/call_kw');
-//   final employeeHeaders = {
-//     'Content.type': 'application/json',
-//     'Cookie': 'session_id=$sessionId',
-//   };
-//   final empBody = {
-//     'jsonrpc': '2.0',
-//     'params': {
-//       'model': 'hr.employee',
-//       'method': 'search_read',
-//       'args': [],
-//       'kwargs': {
-//         'context': {'binsize': true},
-//         'domain': [],
-//         'fields': ['name', 'barcode']
-//       },
-//     }
-//   };
-//   final empResponse =
-//       await http.post(dataUrl, headers: employeeHeaders, body: empBody);
-//   final employees = json.decode(empResponse.body)['result'];
-
-//   return employees;
-// }
+  return employees;
+}
 
 // Future<http.Response> getProject(sessionId) async {
 //   final dataUrl = Uri.parse('https://vienna.odoo.com/wev/dataset/call_kw');
