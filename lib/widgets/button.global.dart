@@ -7,6 +7,7 @@ class ButtonGlobal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: GlobalColors.tertiaryColor,
       onTap: () {
         // getEmployee(res),
         print('logged!');
@@ -14,6 +15,7 @@ class ButtonGlobal extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         height: 50,
+        width: 180,
         decoration: BoxDecoration(
           color: GlobalColors.secondaryColor,
           borderRadius: BorderRadius.circular(6),

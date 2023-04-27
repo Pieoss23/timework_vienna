@@ -17,9 +17,10 @@ class LoginPage extends StatelessWidget {
           child: Container(
             color: GlobalColors.lightColor,
             width: double.infinity,
+            height: 800,
             padding: const EdgeInsets.all(25.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(
                   height: 20,

@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
         _isAuthenticated = response[0].status == 200;
       });
 
-      // to the check if just logged in or not
+      // HERE WE CHECK IF ARE LOG IN OR NOT
 
       Get.to(LoginPage());
     });
