@@ -16,67 +16,67 @@ class LoginPage extends StatelessWidget {
         child: SafeArea(
           child: Container(
             color: GlobalColors.lightColor,
-            width: double.infinity,
-            height: 800,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             padding: const EdgeInsets.all(25.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Image.asset(
-                  'vienna_logo.webp',
-                  width: 150,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'Login',
-                  style: TextStyle(
-                    color: GlobalColors.darkColor,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600,
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'Login to yout account',
-                  style: TextStyle(
-                    color: GlobalColors.primaryColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
+                  Image.asset(
+                    'vienna_logo.webp',
+                    width: 200,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormGlobal(
-                  controller: barcodeController,
-                  text: 'Barcode',
-                  textInputType: TextInputType.text,
-                  obscure: false,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                TextFormGlobal(
-                  controller: passwordController,
-                  text: 'Password',
-                  textInputType: TextInputType.visiblePassword,
-                  obscure: true,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const ButtonGlobal(),
-                const SizedBox(
-                  height: 25,
-                )
-              ],
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Login with your account',
+                    style: TextStyle(
+                      color: GlobalColors.primaryColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text('Inserire Barcode e password'),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextFormGlobal(
+                        controller: barcodeController,
+                        text: 'Barcode',
+                        textInputType: TextInputType.text,
+                        obscure: false,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      TextFormGlobal(
+                        controller: passwordController,
+                        text: 'Password',
+                        textInputType: TextInputType.visiblePassword,
+                        obscure: true,
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      const ButtonGlobal(),
+                      const SizedBox(
+                        height: 25,
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

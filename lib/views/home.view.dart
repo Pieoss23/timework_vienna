@@ -32,13 +32,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Auth'),
-        ),
         body: Center(
-          child: _isAuthenticated
-              ? const Text('✅Authentication successful!')
-              : const Text('❌Authentication failed!'),
-        ));
+      child: _isAuthenticated
+          ? const Text('✅Authentication successful!')
+          : const Text('❌Authentication failed!'),
+    ));
   }
 }

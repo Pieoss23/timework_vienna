@@ -21,6 +21,7 @@ class TextFormGlobal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 55,
+      width: 250,
       padding: const EdgeInsets.only(
         top: 2,
         left: 16,

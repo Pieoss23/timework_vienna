@@ -14,7 +14,7 @@ class ButtonGlobal extends StatelessWidget {
       },
       child: Container(
         alignment: Alignment.center,
-        height: 50,
+        height: 30,
         width: 180,
         decoration: BoxDecoration(
           color: GlobalColors.secondaryColor,
