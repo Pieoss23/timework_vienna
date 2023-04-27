@@ -19,9 +19,9 @@ Future<List<AuthResponse>> authenticate() async {
     'jsonrpc': '2.0',
     'method': 'call',
     'params': {
-      'db': 'vienna',
-      'login': 'alessandro.dellanna@ixorateam.com',
-      'password': '-tomishiba2020-',
+      'db': 'xxxxxxx',
+      'login': 'xxxxxxxxxxxxxxxxxx',
+      'password': 'xxxxxxxxxxx',
     },
   });
 
