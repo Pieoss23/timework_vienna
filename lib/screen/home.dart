@@ -14,8 +14,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    authenticate().then((isAuthenticated) {
-      _isAuthenticated = isAuthenticated as bool;
+    authenticate().then((response) {
+      setState(() {
+        _isAuthenticated = response.statusCode == 200;
+      });
     });
   }
 
@@ -27,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: Center(
           child: _isAuthenticated
-              ? const Text('✔️Authentication successful!')
+              ? const Text('✅Authentication successful!')
               : const Text('❌Authentication failed!'),
         ));
   }
