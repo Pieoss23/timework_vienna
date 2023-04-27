@@ -1,17 +1,9 @@
 import 'dart:convert';
+import 'package:time_work/models/authResponse.model.dart';
 import 'package:universal_io/io.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:io';
-
-class AuthResponse {
-  String sessionToken;
-  int status;
-  AuthResponse({
-    required this.sessionToken,
-    required this.status,
-  });
-}
 
 Future<List<AuthResponse>> authenticate() async {
   // Create the authentication URL
